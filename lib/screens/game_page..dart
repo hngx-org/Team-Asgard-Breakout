@@ -1,6 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:game_breakout_task/components/ball.dart';
+import 'package:game_breakout_task/components/brick.dart';
+import 'package:game_breakout_task/screens/gameover_screen.dart';
+import 'package:game_breakout_task/screens/start_screen.dart';
+
+import '../components/player_bar.dart';
 
 
 class GamePage extends StatefulWidget {
@@ -142,6 +149,88 @@ class _GamePageState extends State<GamePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return RawKeyboardListener(
+      focusNode: FocusNode(),
+      autofocus: true,
+      onKey: (event) {
+        if (event.isKeyPressed(LogicalKeyboardKey.arrowLeft)) {
+          moveLeft();
+        } else if (event.isKeyPressed(LogicalKeyboardKey.arrowRight)) {
+          moveRight();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: Colors.deepOrangeAccent,
+        body: Center(
+          child: Stack(
+            children: [
+              // Container(
+              //   alignment: Alignment(0,-0.5),
+              //   child: GestureDetector(
+              //     onTap: startGame,
+              //   ),
+              // ),
+              Container(
+                alignment: Alignment(-1,1),
+                child: IconButton(
+                  onPressed: moveLeft,
+                  icon: Icon(Icons.arrow_back_outlined),
+                  iconSize: 30,
+                ),),
+              Container(
+                alignment: Alignment(1,1),
+                child: IconButton(
+                  onPressed: moveRight,
+                  icon: Icon(Icons.arrow_forward),
+                  iconSize: 30,
+                ),),
+              StartScreen(hasGameStarted: hasGameStarted, startGame: () { startGame(); },),
+              GameOver(isGameOver: isGameOver,),
+
+              //bricks
+              Brick(
+                brickBroken: GameBricks[0][2],
+                brickHeight: brickHeight,
+                brickWidth: brickWidth,
+                brickX: GameBricks[0][0],
+                brickY: GameBricks[0][1],
+              ),
+              Brick(
+                brickBroken: GameBricks[1][2],
+                brickHeight: brickHeight,
+                brickWidth: brickWidth,
+                brickX: GameBricks[1][0],
+                brickY: GameBricks[1][1],
+              ),
+              Brick(
+                brickBroken: GameBricks[2][2],
+                brickHeight: brickHeight,
+                brickWidth: brickWidth,
+                brickX: GameBricks[2][0],
+                brickY: GameBricks[2][1],
+              ),
+              Brick(
+                brickBroken: GameBricks[3][2],
+                brickHeight: brickHeight,
+                brickWidth: brickWidth,
+                brickX: GameBricks[3][0],
+                brickY: GameBricks[3][1],
+              ),
+              GameBall(
+                ballX: ballX,
+                ballY: ballY,
+              ),
+
+              GestureDetector(
+                child: PlayerBar(
+                  playerX: playerX,
+                  playerWidth: playerWidth,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
