@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 
@@ -78,6 +80,64 @@ class _GamePageState extends State<GamePage> {
   
       //check if brick is broken
       checkBrokenBrick();
+    });
+  }
+  void checkBrokenBrick() {
+    for(int brick =0;brick < GameBricks.length; brick++ ){
+      if (ballX >= GameBricks[brick][0] &&
+          ballX <= GameBricks[brick][0] + brickWidth &&
+          ballY <= GameBricks[brick][1] + brickHeight &&
+          GameBricks[brick][2] == false) {
+        setState(() {
+          GameBricks[brick][2] = true;
+          ballYDirection = direction.DOWN;
+        });
+      }
+    }
+  }
+
+  bool isPlayerDead() {
+    if (ballY >= 1) {
+      return true;
+    }
+    return false;
+  }
+
+  void moveBall() {
+    setState(() {
+      //move horizontally
+      if (ballXDirection == direction.LEFT) {
+        ballX -= ballXincrease;
+      } else if (ballXDirection == direction.RIGHT) {
+        ballX += ballXincrease;
+      }
+      //move vertically
+      if (ballYDirection == direction.DOWN) {
+        ballY += ballYincrease;
+      } else if (ballYDirection == direction.UP) {
+        ballY -= ballXincrease;
+      }
+    });
+  }
+
+  void updateBallDirection() {
+    setState(() {
+      // ball when it hit player bar
+      if (ballY >= 0.9 && ballX >= playerX && ballX <= playerX + playerWidth) {
+        ballYDirection = direction.UP;
+      }
+      // bal when it hits top of the screen
+      else if (ballY <= -1 ) {
+        ballYDirection = direction.DOWN;
+      }
+      //ball goes right when it hits left wall
+      if(ballX<=-1){
+        ballXDirection = direction.RIGHT;
+      }
+      // ball goes left when it hits right wall
+      else if(ballX>=1){
+        ballXDirection = direction.LEFT;
+      }
     });
   }
   @override
