@@ -9,51 +9,57 @@ import 'package:game_breakout_task/screens/start_screen.dart';
 
 import '../components/player_bar.dart';
 
-
 class GamePage extends StatefulWidget {
   const GamePage({super.key});
 
   @override
   State<GamePage> createState() => _GamePageState();
 }
-enum  direction {UP, DOWN, LEFT, RIGHT,}
+
+enum direction {
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT,
+}
+
 class _GamePageState extends State<GamePage> {
   //game started
   bool hasGameStarted = false;
   bool isGameOver = false;
-  
+
   //ball position
   double ballX = 0;
   double ballY = 0;
   double ballXincrease = 0.01;
   double ballYincrease = 0.01;
-  
+
   var ballYDirection = direction.DOWN;
   var ballXDirection = direction.LEFT;
-  
+
   // player Variables
   double playerX = -0.2;
   double playerWidth = 0.4;
-  
+
   //brick variables
-  static double firstBrickX = -1+ WG;
+  static double firstBrickX = -1 + WG;
   static double firstBrickY = -0.9;
   static double brickWidth = 0.2;
   static double brickHeight = 0.05;
   static double brickGap = 0.3;
   static int noOfBricks = 4;
-  static double WG = 0.5*(2-noOfBricks*brickWidth - (noOfBricks-1)*(brickGap));
+  static double WG =
+      0.5 * (2 - noOfBricks * brickWidth - (noOfBricks - 1) * (brickGap));
   // bool brickBroken = false;
-  
+
   List GameBricks = [
     //[x,y, broken =true/false]
-    [firstBrickX + 0*(brickWidth+brickGap),firstBrickY, false],
-    [firstBrickX+ 1*(brickWidth+ brickGap), firstBrickY,false],
-    [firstBrickX+ 2*(brickWidth+ brickGap), firstBrickY,false],
-    [firstBrickX+ 3*(brickWidth+ brickGap), firstBrickY,false],
-  
+    [firstBrickX + 0 * (brickWidth + brickGap), firstBrickY, false],
+    [firstBrickX + 1 * (brickWidth + brickGap), firstBrickY, false],
+    [firstBrickX + 2 * (brickWidth + brickGap), firstBrickY, false],
+    [firstBrickX + 3 * (brickWidth + brickGap), firstBrickY, false],
   ];
-  
+
   //move left
   void moveLeft() {
     setState(() {
@@ -62,35 +68,36 @@ class _GamePageState extends State<GamePage> {
       }
     });
   }
-  
+
   // moveRight
   void moveRight() {
     setState(() {
-      if (!(playerX + playerWidth>= 1)) {
+      if (!(playerX + playerWidth >= 1)) {
         playerX += 0.2;
       }
     });
   }
-  
+
   //start game function
   void startGame() {
     hasGameStarted = true;
     Timer.periodic(const Duration(milliseconds: 10), (timer) {
       moveBall();
       updateBallDirection();
-  
+
       //if playerDead
       if (isPlayerDead()) {
         timer.cancel();
         isGameOver = true;
       }
-  
+
       //check if brick is broken
       checkBrokenBrick();
     });
   }
+
   void checkBrokenBrick() {
-    for(int brick =0;brick < GameBricks.length; brick++ ){
+    for (int brick = 0; brick < GameBricks.length; brick++) {
       if (ballX >= GameBricks[brick][0] &&
           ballX <= GameBricks[brick][0] + brickWidth &&
           ballY <= GameBricks[brick][1] + brickHeight &&
@@ -134,19 +141,20 @@ class _GamePageState extends State<GamePage> {
         ballYDirection = direction.UP;
       }
       // bal when it hits top of the screen
-      else if (ballY <= -1 ) {
+      else if (ballY <= -1) {
         ballYDirection = direction.DOWN;
       }
       //ball goes right when it hits left wall
-      if(ballX<=-1){
+      if (ballX <= -1) {
         ballXDirection = direction.RIGHT;
       }
       // ball goes left when it hits right wall
-      else if(ballX>=1){
+      else if (ballX >= 1) {
         ballXDirection = direction.LEFT;
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return RawKeyboardListener(
@@ -171,21 +179,30 @@ class _GamePageState extends State<GamePage> {
               //   ),
               // ),
               Container(
-                alignment: Alignment(-1,1),
+                alignment: Alignment(-1, 1),
                 child: IconButton(
                   onPressed: moveLeft,
                   icon: Icon(Icons.arrow_back_outlined),
                   iconSize: 30,
-                ),),
+                ),
+              ),
               Container(
-                alignment: Alignment(1,1),
+                alignment: Alignment(1, 1),
                 child: IconButton(
                   onPressed: moveRight,
                   icon: Icon(Icons.arrow_forward),
                   iconSize: 30,
-                ),),
-              StartScreen(hasGameStarted: hasGameStarted, startGame: () { startGame(); },),
-              GameOver(isGameOver: isGameOver,),
+                ),
+              ),
+              StartScreen(
+                hasGameStarted: hasGameStarted,
+                startGame: () {
+                  startGame();
+                },
+              ),
+              GameOver(
+                isGameOver: isGameOver,
+              ),
 
               //bricks
               Brick(

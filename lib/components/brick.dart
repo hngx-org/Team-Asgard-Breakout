@@ -20,12 +20,13 @@ class Brick extends StatelessWidget {
     return brickBroken
         ? Container()
         : Container(
-      alignment: Alignment((2*brickX+brickWidth)/(2-brickWidth), brickY),
-      child: Container(
-        color: Colors.black,
-        height: MediaQuery.of(context).size.height * brickHeight / 2,
-        width: MediaQuery.of(context).size.height * brickWidth / 2,
-      ),
-    );
+            alignment:
+                Alignment((2 * brickX + brickWidth) / (2 - brickWidth), brickY),
+            child: Container(
+              color: Colors.black,
+              height: MediaQuery.of(context).size.height * brickHeight / 2,
+              width: MediaQuery.of(context).size.height * brickWidth / 2,
+            ),
+          );
   }
 }
