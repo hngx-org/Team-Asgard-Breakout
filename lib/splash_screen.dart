@@ -1,6 +1,7 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:game_breakout_task/screens/game_page..dart';
+// import 'package:game_breakout_task/startG.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -17,6 +18,7 @@ class SplashScreen extends StatelessWidget {
         "assets/images/splash_image.png",
       ),
       navigator: const GamePage(),
+      // navigator: const StartG(),
       loadingText: const Text("Please wait"),
       durationInSeconds: 3,
     );

@@ -6,6 +6,7 @@ import 'package:game_breakout_task/components/ball.dart';
 import 'package:game_breakout_task/components/brick.dart';
 import 'package:game_breakout_task/screens/gameover_screen.dart';
 import 'package:game_breakout_task/screens/start_screen.dart';
+import 'package:game_breakout_task/startG.dart';
 
 import '../components/player_bar.dart';
 
@@ -23,9 +24,14 @@ enum direction {
   RIGHT,
 }
 
+int score = 0;
+int brickNum = 0;
+int stage = 1;
+// Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){return newStage(stage: stage);}
+
 class _GamePageState extends State<GamePage> {
   //game started
-  bool hasGameStarted = false;
+  bool hasGameStarted = true;
   bool isGameOver = false;
 
   //ball position
@@ -80,7 +86,7 @@ class _GamePageState extends State<GamePage> {
 
   //start game function
   void startGame() {
-    hasGameStarted = true;
+    hasGameStarted = false;
     Timer.periodic(const Duration(milliseconds: 10), (timer) {
       moveBall();
       updateBallDirection();
@@ -89,6 +95,7 @@ class _GamePageState extends State<GamePage> {
       if (isPlayerDead()) {
         timer.cancel();
         isGameOver = true;
+        score;
       }
 
       //check if brick is broken
@@ -105,6 +112,13 @@ class _GamePageState extends State<GamePage> {
         setState(() {
           GameBricks[brick][2] = true;
           ballYDirection = direction.DOWN;
+          brickNum += 1;
+          if (brickNum == 4){
+            score += 1;
+            brickNum = 0;
+            stage += 1;
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){return newStage(stage: stage);}));
+          }
         });
       }
     }
@@ -167,7 +181,17 @@ class _GamePageState extends State<GamePage> {
           moveRight();
         }
       },
-      child: Scaffold(
+      child: hasGameStarted ? Scaffold(
+        backgroundColor: Colors.deepOrangeAccent,
+        body: Center(
+          child: StartScreen(
+                hasGameStarted: hasGameStarted,
+                startGame: () {
+                  startGame();
+                },
+              ),
+        )
+      ) : Scaffold(
         backgroundColor: Colors.deepOrangeAccent,
         body: Center(
           child: Stack(
@@ -194,14 +218,15 @@ class _GamePageState extends State<GamePage> {
                   iconSize: 30,
                 ),
               ),
-              StartScreen(
-                hasGameStarted: hasGameStarted,
-                startGame: () {
-                  startGame();
-                },
-              ),
+              // StartScreen(
+              //   hasGameStarted: hasGameStarted,
+              //   startGame: () {
+              //     startGame();
+              //   },
+              // ),
               GameOver(
                 isGameOver: isGameOver,
+                score: score,
               ),
 
               //bricks
