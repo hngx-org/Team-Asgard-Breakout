@@ -6,6 +6,7 @@ import 'package:game_breakout_task/components/ball.dart';
 import 'package:game_breakout_task/components/brick.dart';
 import 'package:game_breakout_task/screens/gameover_screen.dart';
 import 'package:game_breakout_task/screens/start_screen.dart';
+import 'package:game_breakout_task/startG.dart';
 
 import '../components/player_bar.dart';
 
@@ -25,7 +26,7 @@ enum direction {
 
 int score = 0;
 int brickNum = 0;
-int stage = 0;
+int stage = 1;
 // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){return newStage(stage: stage);}
 
 class _GamePageState extends State<GamePage> {
@@ -116,6 +117,7 @@ class _GamePageState extends State<GamePage> {
             score += 1;
             brickNum = 0;
             stage += 1;
+            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context){return newStage(stage: stage);}));
           }
         });
       }
