@@ -1,6 +1,6 @@
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:game_breakout_task/screens/game_page..dart';
+import 'package:game_breakout_task/screens/utility_screen.dart';
 // import 'package:game_breakout_task/startG.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -17,10 +17,10 @@ class SplashScreen extends StatelessWidget {
       logo: Image.asset(
         "assets/images/splash_image.png",
       ),
-      navigator: const GamePage(),
+      navigator: const UtilityScreen(),
       // navigator: const StartG(),
       loadingText: const Text("Please wait"),
-      durationInSeconds: 3,
+      durationInSeconds: 10,
     );
   }
 }

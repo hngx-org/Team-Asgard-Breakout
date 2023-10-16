@@ -24,7 +24,7 @@ class Brick extends StatelessWidget {
                 Alignment((2 * brickX + brickWidth) / (2 - brickWidth), brickY),
             child: Container(
               color: Colors.black,
-              height: MediaQuery.of(context).size.height * brickHeight / 2,
+              height: 35,
               width: MediaQuery.of(context).size.height * brickWidth / 2,
             ),
           );

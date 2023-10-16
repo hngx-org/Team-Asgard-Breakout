@@ -13,8 +13,8 @@ class GameOver extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("G A M E  O V E R"),
-                Text("Scores: $score"),
+                Text("G A M E  O V E R",style: TextStyle(fontSize: 20),),
+                Text("Scores: $score",style: TextStyle(fontSize: 20),),
               ],
             ),
           )
