@@ -4,7 +4,7 @@ import 'package:game_breakout_task/screens/game_page..dart';
 class newStage extends StatelessWidget {
   const newStage({super.key, required this.stage});
   final int stage;
-  
+
 
   @override
   Widget build(BuildContext context) {
