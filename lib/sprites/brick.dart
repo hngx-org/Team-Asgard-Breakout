@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:game_breakout_task/breakout_game.dart';
-import 'package:game_breakout_task/ball.dart';
+import 'package:game_breakout_task/sprites/ball.dart';
 import 'package:game_breakout_task/score.dart';
 import 'package:game_breakout_task/level.dart';
 import 'package:flame/collisions.dart';
@@ -18,7 +18,7 @@ int levelCounter = 0;
 
 class Brick extends PositionComponent
  with HasGameRef<BreakoutGame>, CollisionCallbacks {
- late final RectangleHitbox paddleHitBox;
+ late final RectangleHitbox brickHitBox;
  late final RectangleComponent brick;
 
   final Size Bsize;
@@ -69,13 +69,11 @@ class Brick extends PositionComponent
      paint: Paint()..color = Bcolor,
    );
  
-   paddleHitBox = RectangleHitbox(
-     size: size,
-   );
+   brickHitBox = RectangleHitbox();
  
    addAll([
     brick,
-     paddleHitBox,
+     brickHitBox,
    ]);
  
  return super.onLoad();
@@ -92,7 +90,7 @@ class Brick extends PositionComponent
         if (levelCounter == 48){
           final level = gameRef.level;
           updatePlayerLevel(level);
-          levelCounter = 0;
+          // levelCounter = 0;
         }
     }
     super.onCollision(intersectionPoints, other);
