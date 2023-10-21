@@ -1,4 +1,4 @@
-import 'package:game_breakout_task/brick.dart';
+import 'package:game_breakout_task/sprites/brick.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/components.dart';
