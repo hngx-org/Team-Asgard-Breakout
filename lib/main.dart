@@ -1,8 +1,6 @@
-import 'package:game_breakout_task/breakout_game.dart';
 import 'package:flutter/material.dart';
-import 'package:flame/game.dart';
+import 'package:game_breakout_task/screens/splash_screen.dart';
 
 void main() {
-  // final game = BreakoutGame();
-  runApp(GameWidget(game: BreakoutGame()));
+  runApp(const MaterialApp(home: SplashScreen()));
 }
