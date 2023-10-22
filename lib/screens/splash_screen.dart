@@ -1,3 +1,4 @@
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:game_breakout_task/screens/menu_screen.dart';
 
@@ -11,16 +12,16 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
+    FlameAudio.bgm.initialize();
     super.initState();
-    Future.delayed(Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 10), () {
       _preloadImage();
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (_) => MenuScreen()));
+          context, MaterialPageRoute(builder: (_) => const MenuScreen()));
     });
   }
   Future<void> _preloadImage() async {
     await Future.wait([
-      // Flame.images.loadAllImages(),
       precacheImage(const AssetImage('assets/images/game/stars_background.png'), context),
     ]);
   }
@@ -39,13 +40,13 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Container(
           height: size.height,
           width: size.width,
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: size.width * 0.8,
-                child: Text(
+                child: const Text(
                   "BRICK BREAKER",
                     textAlign: TextAlign.center,
                   style: TextStyle(fontFamily: "PublicPixel", fontSize: 22,color: Colors.blue)
@@ -58,8 +59,8 @@ class _SplashScreenState extends State<SplashScreen> {
               //     width: size.width/2,
               //     color: Colors.white,
               //     child: Image.asset("assets/images/game/splash_img.png",fit: BoxFit.fill,)),
-              Text("Check"),
-              Container(
+              const Text("Check"),
+              SizedBox(
                   width: size.width / 2,
                   child: LinearProgressIndicator(
                     backgroundColor: Colors.lightBlue,
